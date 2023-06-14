@@ -1,7 +1,6 @@
-# Awesome Project Build with TypeORM
+# Project Build with TypeORM, Express, MySQL
 
 Steps to run this project:
 
-1. Run `npm i` command
-2. Setup database settings inside `data-source.ts` file
-3. Run `npm start` command
+1. Run `docker-compose up --build `command
+   if failed run `docker build . -f Dockerfile.txt`
