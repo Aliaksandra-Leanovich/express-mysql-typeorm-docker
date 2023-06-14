@@ -43,7 +43,7 @@ router.get("/", (request: Request, response: Response) => {
     });
 });
 
-// Get a test by testcandidate
+
 router.get(
   "/user/:id",
   param("id").isNumeric(),
@@ -61,7 +61,7 @@ router.get(
   }
 );
 
-// Get a test details
+
 router.get(
   "/:id",
   param("id").isNumeric(),
@@ -79,7 +79,7 @@ router.get(
   }
 );
 
-// Update
+
 router.put(
   "/:id",
   param("id").isNumeric(),
@@ -98,10 +98,10 @@ router.put(
           throw Error("Test does not exist.");
         }
 
-        // Update basic fields
+       
         const existingTest = await testRepository.preload(test);
 
-        // Persist and return entity
+
         const new_test = await testRepository.save({
           ...existingTest,
           ...request.body,
@@ -114,7 +114,6 @@ router.put(
   }
 );
 
-// Delete a single Test
 router.delete(
   "/:id",
   param("id").isNumeric(),

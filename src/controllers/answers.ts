@@ -20,15 +20,6 @@ router.post(
     let answer: Answers = new Answers();
     answer = { ...answer, ...request.body };
 
-    // Attach candidate
-    const existingCandidate = await userRepository.findOne({
-      where: { id: request.body.id },
-    });
-
-    // if (existingCandidate) {
-    //     answer.testcandidate_id = existingCandidate.id;
-    // }
-
     answerRepository
       .save(answer)
       .then((new_answer) => {
@@ -44,7 +35,6 @@ router.get("/", (request: Request, response: Response) => {
   answerRepository
     .find({
       take: 50,
-      //   relations: [""],
     })
     .then((answer) => response.send(answer))
     .catch((err) => {

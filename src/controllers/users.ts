@@ -60,7 +60,6 @@ router.put(
   }
 );
 
-// Get a single User
 router.get(
   "/:id",
   param("id").isNumeric(),
@@ -76,7 +75,6 @@ router.get(
   }
 );
 
-// Delete a single user
 router.delete(
   "/:id",
   param("id").isNumeric(),

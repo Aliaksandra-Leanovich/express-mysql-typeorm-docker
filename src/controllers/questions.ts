@@ -6,7 +6,6 @@ import { AppDataSource } from "../data-source";
 const router = Router();
 const questionsRepository = AppDataSource.getRepository(Questions);
 
-// Create
 router.post(
   "/",
   body("question").isLength({ min: 5 }),
@@ -19,7 +18,6 @@ router.post(
     let question: Questions = new Questions();
     question = { ...question, ...request.body };
 
-    // Persist to DB
     questionsRepository
       .save(question)
       .then((question) => {
@@ -31,7 +29,6 @@ router.post(
   }
 );
 
-// Get All
 router.get("/", function (request: Request, response: Response) {
   questionsRepository
     .find({ take: 55 })
@@ -43,7 +40,6 @@ router.get("/", function (request: Request, response: Response) {
     });
 });
 
-// Get a single entity
 router.get(
   "/:id",
   param("id").isNumeric(),
@@ -60,13 +56,11 @@ router.get(
   }
 );
 
-// Get single entity
 router.put(
   "/:id",
   param("id").isNumeric(),
   body("question").isLength({ min: 5 }),
   function (request: Request, response: Response) {
-    // Handle missing fields
     const errors = validationResult(request);
     if (!errors.isEmpty()) {
       return response.status(400).json({ errors: errors.array() });
@@ -78,7 +72,7 @@ router.put(
       })
       .then(async (question) => {
         if (!question) throw Error("Question does not exist.");
-        // Update record
+
         const existingQuestion = await questionsRepository.preload(question);
         question = await questionsRepository.save({
           ...existingQuestion,
@@ -90,7 +84,6 @@ router.put(
   }
 );
 
-// Delete a single entity
 router.delete(
   "/:id",
   param("id").isNumeric(),
